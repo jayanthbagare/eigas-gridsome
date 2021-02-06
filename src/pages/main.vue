@@ -16,15 +16,19 @@ const basic = require("../sources/basic")
                 <g-image :src="a.thumbnails.large.url + '?nf_resize=fit&w=100'" width="a.thumbnails.large.width" height="a.thumbnails.large.height" fit="contain"/>
             </span>
         </div>
-        
+        <Pager :info="$page.allStoryDetails.pageInfo"/>
     </Layout>
 </template>
 
 <page-query>
-query ($locale:String!){
+query ($locale:String,$page: Int!){
   allStoryDetails(
-     filter:{status:{eq:"ToBePublished"},language:{eq:$locale}}
-  ){
+     filter:{status:{eq:"ToBePublished"},language:{eq:$locale}},perPage: 10, page: $page
+  ) @paginate {
+    pageInfo {
+        totalPages
+        currentPage
+      }
     edges{
       node{
         title
@@ -46,10 +50,12 @@ query ($locale:String!){
 
 <script>
 import LocaleSwitcher from '~/components/LocaleSwitcher.vue'
+import { Pager } from 'gridsome';
 
 export default {
   components: {
-    LocaleSwitcher
+    LocaleSwitcher,
+    Pager
   }
 }
 </script>

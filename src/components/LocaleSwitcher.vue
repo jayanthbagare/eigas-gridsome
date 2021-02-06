@@ -8,9 +8,8 @@
 export default {
   name: "LocaleSwitcher",
   data: function () {
-    console.log(this.$i18n);
     return {
-    //   currentLocale: this.$i18n.locale.toString(),
+    currentLocale: this.$i18n.locale.toString(),
     //   availableLocales: this.$i18n.availableLocales
     availableLocales:['hi','en']
     }
