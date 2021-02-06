@@ -19,7 +19,8 @@ module.exports = function(api,opts){
                     notes:item.fields.Story,
                     attachments:item.fields.Cover_Photo_Web,
                     status:item.fields.Status,
-                    cdnurl:item.fields.cdnurl
+                    cdnurl:item.fields.cdnurl,
+                    language:item.fields.language
                 });
             });
             fetchNextPage();

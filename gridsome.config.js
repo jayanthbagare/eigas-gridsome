@@ -19,6 +19,23 @@ module.exports = {
               }
             ]
           }
+    },
+    {
+      use:'gridsome-plugin-i18n',
+      options:{
+        locales: [ // locales list
+          'en',
+          'hi'
+        ],
+        pathAliases: { // path segment alias for each locales
+          'en': 'en',
+          'hi':'hi'
+        },
+        fallbackLocale: 'en', // fallback language
+        defaultLocale: 'en', // default language
+        enablePathRewrite: true, // rewrite path with locale prefix, default: true
+        rewriteDefaultLanguage: true, // rewrite default locale, default: true
       }
+    }
   ]
 }
