@@ -36,13 +36,12 @@ module.exports = function (api) {
 
     data.allStoryDetails.edges.forEach(({ node }) => {
         createPage({
-          path: '/person/' + node.id,
+          path: '/main/person/' + node.id,
           component: "./src/templates/DetailsPage.vue",
           context: {
             id: node.id // this will be used as a query variable in CategoryPage.vue
           }
         })
-        console.log('Inside Create Page');
     })
   })
 }
