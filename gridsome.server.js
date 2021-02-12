@@ -10,7 +10,39 @@ module.exports = function (api) {
     // Use the Data Store API here: https://gridsome.org/docs/data-store-api/
   })
 
-  api.createPages(({ createPage }) => {
+  api.createPages(async ({ graphql,createPage }) => {
     // Use the Pages API here: https://gridsome.org/docs/pages-api/
+    const { data } = await graphql(`
+    {
+      allStoryDetails{
+        edges{
+          node{
+            id
+            title
+            story
+            coverPhotoWeb{
+              thumbnails{
+                large{
+                  url
+                }
+              }
+            }
+            status
+          }
+        }
+      }
+    }
+    `);
+
+    data.allStoryDetails.edges.forEach(({ node }) => {
+        createPage({
+          path: '/person/' + node.id,
+          component: "./src/templates/DetailsPage.vue",
+          context: {
+            id: node.id // this will be used as a query variable in CategoryPage.vue
+          }
+        })
+        console.log('Inside Create Page');
+    })
   })
 }
