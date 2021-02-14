@@ -33,8 +33,8 @@ module.exports = {
         },
         fallbackLocale: 'en', // fallback language
         defaultLocale: 'en', // default language
-        enablePathRewrite: true, // rewrite path with locale prefix, default: true
-        rewriteDefaultLanguage: true, // rewrite default locale, default: true
+        enablePathRewrite: false, // rewrite path with locale prefix, default: true
+        rewriteDefaultLanguage: false, // rewrite default locale, default: true
       }
     }
   ]

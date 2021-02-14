@@ -7,20 +7,14 @@ const basic = require("../sources/basic")
       <LocaleSwitcher></LocaleSwitcher>
     </div>
     <br />
-
     <b-container fluid>
       <b-row cols="2">
         <b-col v-for="edge in $page.allStoryDetails.edges" :key="edge.node.id">
-
-          <!-- <g-link :to="getLink(edge.node.id)"> -->
             <b-link :to="getLink(edge.node.id)">
           <b-card>
 
             <b-card-body>
-              <span v-for="a in edge.node.coverPhotoWeb">
-                <b-card-img top :src="a.thumbnails.large.url"></b-card-img>
-              </span>
-
+              <b-card-img top :src="getSingleCoverPhotoImage(edge.node.coverPhotoWeb)"></b-card-img>
               <b-card-title>{{ edge.node.title }}</b-card-title>
               <b-card-text>
                 {{ getSlug(edge.node.story) }}
@@ -29,7 +23,7 @@ const basic = require("../sources/basic")
 
           </b-card>
             </b-link>
-          <!-- </g-link> -->
+
           <br />
         </b-col>
       </b-row>
@@ -83,6 +77,9 @@ export default {
     getLink: function(rawLink) {
       return "/main/person/" + rawLink;
     },
+    getSingleCoverPhotoImage(coverPhotos){
+      return coverPhotos[0].thumbnails.large.url;
+    }
   },
 };
 </script>
