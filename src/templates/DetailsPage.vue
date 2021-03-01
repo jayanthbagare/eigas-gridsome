@@ -5,7 +5,7 @@
           <b-carousel
             :id="edge.node.id"
             controls
-            no-animation
+            no-animation=true
             indicators
             img-width=500
             img-height=500
