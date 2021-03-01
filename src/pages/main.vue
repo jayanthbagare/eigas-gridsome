@@ -10,7 +10,7 @@ const basic = require("../sources/basic")
     <b-container fluid>
       <b-row cols="2">
         <b-col v-for="edge in $page.allData.edges" :key="edge.node.id">
-            <b-link :to="getLink(edge.node.id)">
+            <b-link :to="getLink(edge.node.id)" target="_blank">
           <b-card>
 
             <b-card-body>
