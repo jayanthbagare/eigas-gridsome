@@ -14,10 +14,22 @@ module.exports = {
           base: process.env.airtable_base, // required
           tables: [
               {
+                name: 'State', // required
+                typeName: 'State', // required
+              },
+              {
                 name: process.env.airtable_table, // required
                 typeName: process.env.airtable_table, // required
+                links: [ // optional
+                  {
+                      fieldName: 'State',
+                      typeName: 'State',
+                      linkToFirst: false // optional
+                  }
+                      ]
               }
-            ]
+            ],
+            
           }
     },
     {
@@ -37,5 +49,14 @@ module.exports = {
         rewriteDefaultLanguage: false, // rewrite default locale, default: true
       }
     }
-  ]
+  ],
+  transformers: {
+    remark: {
+      plugins: [
+        'remark-html','gridsome-plugin-remark-youtube'
+      ],config: {
+        commonmark: true
+    }
+    }
+  }
 }

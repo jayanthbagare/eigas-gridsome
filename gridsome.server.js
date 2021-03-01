@@ -14,13 +14,13 @@ module.exports = function (api) {
     // Use the Pages API here: https://gridsome.org/docs/pages-api/
     const { data } = await graphql(`
     {
-      allStoryDetails{
+      allData{
         edges{
           node{
             id
-            title
-            story
-            coverPhotoWeb{
+            name
+            websiteContent
+            photos{
               thumbnails{
                 large{
                   url
@@ -34,7 +34,7 @@ module.exports = function (api) {
     }
     `);
 
-    data.allStoryDetails.edges.forEach(({ node }) => {
+    data.allData.edges.forEach(({ node }) => {
         createPage({
           path: `/main/person/${node.id}` ,
           component: "./src/templates/DetailsPage.vue",

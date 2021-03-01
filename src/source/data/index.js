@@ -9,18 +9,24 @@ module.exports = function(api,opts){
             route:'basics/:slug',
         });
 
-        await base('Basic').select().eachPage((records,fetchNextPage) => {
+        await base('Data').select().eachPage((records,fetchNextPage) => {
             records.forEach((record) => {
                 const item = record._rawJson;
 
                 contentType.addNode({
                     id:item.id,
-                    name:item.fields.Title,
-                    notes:item.fields.Story,
-                    attachments:item.fields.Cover_Photo_Web,
+                    name:item.fields.Name,
+                    state:item.fields.State,
+                    websiteContent:item.fields.Website_Content,
+                    photos:item.fields.Photos,
                     status:item.fields.Status,
-                    cdnurl:item.fields.cdnurl,
-                    language:item.fields.language
+                    cdnPhotoUrl:item.fields.CDN_Photo_URL,
+                    altPhotos:item.fields.altPhotos,
+                    altVideo:item.fields.Alt_Text_Video,
+                    video:item.fields.Video,
+                    changedOn:item.fields.Changed_On,
+                    language:item.fields.language,
+                    quote:item.fields.quote
                 });
             });
             fetchNextPage();

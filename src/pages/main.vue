@@ -9,15 +9,15 @@ const basic = require("../sources/basic")
     <br />
     <b-container fluid>
       <b-row cols="2">
-        <b-col v-for="edge in $page.allStoryDetails.edges" :key="edge.node.id">
+        <b-col v-for="edge in $page.allData.edges" :key="edge.node.id">
             <b-link :to="getLink(edge.node.id)">
           <b-card>
 
             <b-card-body>
-              <b-card-img top :src="getSingleCoverPhotoImage(edge.node.coverPhotoWeb)"></b-card-img>
-              <b-card-title>{{ edge.node.title }}</b-card-title>
+              <b-card-img top :src="getSingleCoverPhotoImage(edge.node.cdnPhotoUrl)"></b-card-img>
+              <b-card-title>{{ edge.node.name }},{{ edge.node.state[0].state }}</b-card-title>
               <b-card-text>
-                {{ getSlug(edge.node.story) }}
+                <blockquote class="card-blockquote">{{ edge.node.quote }}</blockquote>
               </b-card-text>
             </b-card-body>
 
@@ -28,13 +28,13 @@ const basic = require("../sources/basic")
         </b-col>
       </b-row>
     </b-container>
-    <Pager :info="$page.allStoryDetails.pageInfo" />
+    <Pager :info="$page.allData.pageInfo" />
   </Layout>
 </template>
 
 <page-query>
 query ($locale:String,$page: Int!){
-  allStoryDetails(
+  allData(
      filter:{status:{eq:"ToBePublished"},language:{eq:$locale}},perPage: 10, page: $page
   ) @paginate {
     pageInfo {
@@ -44,9 +44,9 @@ query ($locale:String,$page: Int!){
     edges{
       node{
         id
-        title
-        story
-        coverPhotoWeb{
+        name
+        websiteContent
+        cdnPhotoUrl{
           thumbnails{
             large{
               url
@@ -55,6 +55,10 @@ query ($locale:String,$page: Int!){
         }
         status
         language
+        quote
+        state{
+          state
+        }
       }
     } 
   }
@@ -72,13 +76,18 @@ export default {
   },
   methods: {
     getSlug: function(bigText) {
+      console.log(bigText);
       return bigText.substring(0, 100) + "...";
     },
     getLink: function(rawLink) {
       return "/main/person/" + rawLink;
     },
     getSingleCoverPhotoImage(coverPhotos){
-      return coverPhotos[0].thumbnails.large.url;
+      if(coverPhotos.length == 0){
+        return 'https://cdn.pixabay.com/photo/2015/03/04/22/35/head-659650_960_720.png'
+      }else{
+        return coverPhotos[0].thumbnails.large.url;
+      }
     }
   },
 };
