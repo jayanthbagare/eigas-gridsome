@@ -86,8 +86,8 @@ export default {
         arrPos++;
       });
 
-      var objVideo = {"url":video,"alt":altTextVideo,"type":"video"};
-      result.push(objVideo);
+      // var objVideo = {"url":video,"alt":altTextVideo,"type":"video"};
+      // result.push(objVideo);
 
 return result;
     }
